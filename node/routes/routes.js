@@ -6,6 +6,8 @@ import {
   createAlimento, deleteAlimento, getAllAlimento, getAlimento, updateAlimento, getQueryAlimento 
 } from "../controllers/alimentacionController.js";
 
+import { createEstanque, deleteEstanque, getAllEstanque, getEstanque, updateEstanque, getQueryEstanque } from "../controllers/estanqueController.js";
+
 const router = express.Router();
 
 // Rutas para Responsable
@@ -23,5 +25,14 @@ router.post('/alimento', createAlimento);
 router.put('/alimento/:id', updateAlimento);
 router.delete('/alimento/:id', deleteAlimento);
 router.get('/alimento/fec_alimento/:fec_alimento', getQueryAlimento);
+
+// Rutas Para Estanque
+router.get('/', getAllEstanque);
+router.get('/:Id_Estanque', getEstanque);
+router.post('/', upload.single('Img_Estanque'), createEstanque);
+router.put('/:Id_Estanque', upload.single('Img_Estanque'), updateEstanque);
+router.delete('/:Id_Estanque', deleteEstanque);
+router.get('/Id_Estanque/:Id_Estanque', getQueryEstanque);
+
 
 export default router;
