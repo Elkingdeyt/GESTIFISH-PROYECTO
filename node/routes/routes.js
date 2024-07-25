@@ -5,6 +5,7 @@ import {
 import { 
   createAlimento, deleteAlimento, getAllAlimento, getAlimento, updateAlimento, getQueryAlimento 
 } from "../controllers/alimentacionController.js";
+import { createSowing, deleteSowing, getSowing, getAllSowings, updateSowing, getQuerySowing } from '../controllers/siembraController.js';
 
 const router = express.Router();
 
@@ -23,5 +24,13 @@ router.post('/alimento', createAlimento);
 router.put('/alimento/:id', updateAlimento);
 router.delete('/alimento/:id', deleteAlimento);
 router.get('/alimento/fec_alimento/:fec_alimento', getQueryAlimento);
+
+// Rutas para Siembra
+router.get('/', getAllSowings);
+router.get('/:Id_Siembra', getSowing);
+router.post('/', createSowing);
+router.put('/:Id_Siembra', updateSowing);
+router.delete('/:Id_Siembra', deleteSowing);
+router.get('/Id_Siembra/:Id_Siembra', getQuerySowing)
 
 export default router;
