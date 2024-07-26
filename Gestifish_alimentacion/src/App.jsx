@@ -1,13 +1,12 @@
 import { useState } from 'react'
-
 import {Routes, Route, NavLink} from 'react-router-dom'
 
-import Home from './home/Home'
+import Home from './home/Home.jsx'
 import CrudAlimento from './alimento/crudALimento'
-import CrudResponsable from './Responsables//CrudResponsable'
+import CrudResponsable from './Responsables/CrudResponsable'
 // import Responsable from './home/Responsable'
 
-import imagen_logo from '../src/LOGO_GESTIFISH.png'
+import imagen_logo from './IMG/LOGO_GESTIFISH.png'
 import "../src/App.css"
 
 const App = () => {
@@ -31,7 +30,12 @@ const App = () => {
           </li>
           <li className='nav-item'>
             <NavLink className='nav-link fs-5' to="/Responsable" activeClassName="active">
-              Quienes somos
+              Responsables
+            </NavLink>
+          </li>
+          <li className='nav-item'>
+            <NavLink className='nav-link fs-5' to="/Traslados" activeClassName="active">
+              Traslados
             </NavLink>
           </li>
         </ul>

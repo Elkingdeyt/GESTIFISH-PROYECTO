@@ -1,29 +1,25 @@
-import express from 'express'
+import express, { Router } from 'express'
 import cors from 'cors'
+import dotenv from 'dotenv';
 
 import db from './database/db.js'
 import AlimentoRoutes from './routes/routes.js'
+import routerResponsable from './routes/RouterResponsable.js'
 
 const app = express()
+const port = 3001;
 
 app.use(cors())
 app.use(express.json())
 app.use('/alimentacion', AlimentoRoutes)
-app.use('/alimentacion', AlimentoRoutes)
+app.use('/responsable', routerResponsable)
 
 
-try {
-    await db.authenticate()
-    console.log("Conexión exitosa a la db")
-} catch (error) {
-    console.log(`Error de conexión a la db: ${error}`)
-}
+db.authenticate()
+  .then(() => console.log('Conexión a la base de datos establecida.'))
+  .catch(err => console.error('Error de conexión a la db:', err));
 
-
-app.get('/', (req, res) => {
-    res.send('Hola mundo')
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 })
 
-app.listen(8000, () => {
-    console.log('Serwer UP running in http://localhost:8000')
-})

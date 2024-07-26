@@ -1,4 +1,4 @@
-import imgtodo from '../FOTOGRUPAL.png.jpeg'
+import imgtodo from '../IMG/FOTOGRUPAL.png.jpeg'
 
 
 

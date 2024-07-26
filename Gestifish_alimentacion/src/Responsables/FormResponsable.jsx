@@ -14,43 +14,46 @@ const FormResponsable = ({buttonForm, responsable, URI, updateTextButton}) => {
     const [Cor_Responsable, setCor_Responsable] = useState('')
     const [Num_Responsable, setNum_Responsable] = useState('')
 
-    const sendFormR = (e) => {
+    const sendFormR = async (e) => {
 
-        e.preventDesafult()
-
+        e.preventDefault()
         console.log(buttonForm)
 
-        if (buttonForm == 'Actualizar') {
-            console.log('Actualizando Ando...')
-            axios.put(URI + responsable.Id_Responsable, {
-                Id_Responsable: Id_Responsable,
-                Nom_Responsable: Nom_Responsable,
-                Ape_Responsable: Ape_Responsable,
-                Doc_Responsable: Doc_Responsable,
-                Tip_Responsable: Tip_Responsable,
-                Cor_Responsable: Cor_Responsable,
-                Num_Responsable: Num_Responsable
-            })
+        try {
+            if (buttonForm === 'Actualizar') {
+                console.log('Actualizando Ando...');
+                await axios.post(`${URI}${responsable.Id_Responsable}`,{
+                    Id_Responsable,
+                    Nom_Responsable,
+                    Ape_Responsable,
+                    Doc_Responsable,
+                    Tip_Responsable,
+                    Cor_Responsable,
+                    Num_Responsable
+                });
 
-            updateTextButton('Enviar')
-
-            clearFormR()
-
-        } else if (buttonForm == 'Enviar') {
-            console.log('Guardando Ando...')
-            axios.put(URI + responsable.Id_Responsable, {
-                Id_Responsable: Id_Responsable,
-                Nom_Responsable: Nom_Responsable,
-                Ape_Responsable: Ape_Responsable,
-                Doc_Responsable: Doc_Responsable,
-                Tip_Responsable: Tip_Responsable,
-                Cor_Responsable: Cor_Responsable,
-                Num_Responsable: Num_Responsable
-            })
-
-            clearFormR()
+                updateTextButton('Enviar')
+                     
+                clearFormR()
+                
+            } else if (buttonForm === 'Enviar') {
+                console.log('Guardando Ando...')
+                await axios.post(URI, {
+                    Id_Responsable,
+                    Nom_Responsable,
+                    Ape_Responsable,
+                    Doc_Responsable,
+                    Tip_Responsable,
+                    Cor_Responsable,
+                    Num_Responsable
+                })
+                
+                clearFormR();
+            }
+        } catch (error){
+            console.log('Error al enviar el formulario:', error);
         }
-
+    
     }
 
     const clearFormR = () => {
@@ -74,13 +77,20 @@ const FormResponsable = ({buttonForm, responsable, URI, updateTextButton}) => {
     }
 
     useEffect(() => {
-        setDataR()
-    }, [responsable])
+        if (responsable) {
+            setDataR();
+        }
+    }, [responsable]);
+
+
+    // useEffect(() => {
+    //     setDataR()
+    // }, [responsable])
 
     return (
         <>
             <div className="d-flex flex-column align-items-center">
-                <h1 className="fs-1 fw-bold d-flex" >Resgistrar Responsables</h1>
+                <h1 className="fs-1 fw-bold d-flex" >Registrar Responsables</h1>
                 <form action="" id="responsableForm" onSubmit={sendFormR} className="fw-bold m-2" >
                     <label htmlFor="Nom_Responsable" className="m-2">Nombre del Responsable: </label>
                     <input type="text"  id="Nom_Responsable" value={Nom_Responsable} onChange={(e) => setNom_Responsable(e.target.value)} />        
@@ -94,16 +104,16 @@ const FormResponsable = ({buttonForm, responsable, URI, updateTextButton}) => {
                     <label htmlFor="Tip_Responsable" className="m-2">Tipo de Responsable:</label>
                     <select type="text" id="Tip_Responsable" value={Tip_Responsable} onChange={(e) => setTip_Responsable (e.target.value)}>
                         <option value="">Selecciones uno...</option>
-                        <option value="Encargado de la Unidad"></option>
-                        <option value="Instructor"></option>
-                        <option value="Otro"></option>
+                        <option value="E">Encargado de la Unidad</option>
+                        <option value="I">Instructor</option>
+                        <option value="O">Otro</option>
                     </select>
                     <br />
                     <label htmlFor="Cor_Responsable" className="m-2">Correo del Responsable:</label>
                     <input type="text" id="Cor_Responsable" value={Cor_Responsable} onChange={(e) => setCor_Responsable (e.target.value)} />
                     <br />
                     <label htmlFor="Num_Responsable" className="m-2">Número de Telefono:</label>
-                    <input type="time" id="Num_Responsable" value={Num_Responsable} onChange={(e) => setNum_Responsable (e.target.value)} />
+                    <input type="number" id="Num_Responsable" value={Num_Responsable} onChange={(e) => setNum_Responsable (e.target.value)} />
                     <br />
                     <input type="submit" id="boton" value={buttonForm} className="btn btn-success m-2" />
                 </form>

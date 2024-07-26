@@ -33,7 +33,7 @@ const FromQueryResponsable = ({ URI, getResponsable, deleteResponsable, buttonFo
                 <h1 className="fs-1 fw-bold d-flex">Consultar Responsbale</h1>
                 <form action="" id="queryForm" className="fw-bold m-2">
                     <label htmlFor="Doc_ResponsableQuery" className="m-2">Cedula: </label>
-                    <input type="number" id="Doc_ResponsableQuery" value={Doc_Responsable} onChange={(e) => { sendFormQueryR(e.target.value); SetDoc_Responsable(e.target.value) }} />
+                    <input type="number" id="Doc_ResponsableQuery" value={Doc_Responsable} onChange={(e) => { sendFormQueryR(e.target.value); setDoc_Responsable(e.target.value) }} />
                 </form>
             </div>
 
